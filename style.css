@@ -1,0 +1,36 @@
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-container {
+    width: 40%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.display {
+    display: flex;
+    flex-grow: 1;
+    background: grey;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 5;
+    background: darkblue;
+}
+
+.line { 
+    height: 20%;
+}
+
+.line>button {
+    background-color: brown;
+    width: 24%;
+    height: 95%;
+}

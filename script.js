@@ -38,6 +38,17 @@ function operate () {
     }
 }
 
+const buttons = document.querySelectorAll('button');
+const display = document.querySelector('.display');
+
+buttons.forEach(function(button) {
+    button.addEventListener('click', function () {
+        let buttonValue = button.textContent;
+        display.textContent += buttonValue + '';
+        // return buttonValue;
+    });
+});
+
 operate();
 console.log(operate());
 

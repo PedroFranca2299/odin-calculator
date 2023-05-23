@@ -22,38 +22,52 @@ function evaluateExpression(expr) {
     let result = '';
     let numbers = expr.split(/(\+|\-|\*|\/)/);
 
+    let currentOperation = '';
+    let currentNumber = ''; 
+
     for (let i = 0; i < numbers.length; i++) {
         let current = numbers[i].trim();
         
         if (operators.includes(current)) {
-            result += current;
-        } else if (i === 0) {
-            result = current;
-        } else {
-            let operator = result.slice(-1);
-            let previous = parseFloat(result.slice(0, -1));
-            let currentNum = parseFloat(current);
-
-            switch (operator) {
-                case '+':
-                  result = add(previous, currentNum);
-                  break;
-                case '-':
-                  result = subtract(previous, currentNum);
-                  break;
-                case '*':
-                  result = multiply(previous, currentNum);
-                  break;
-                case '/':
-                  result = divide(previous, currentNum);
-                  break;
-                default:
-                  break;
+            if (currentOperation === '') {
+                currentOperation = current;
+            } else {
+                result = performOperation(result, currentOperation, currentNumber);
+                currentOperation = current;
             }
-        }
+            currentNumber = '';
+    } else {
+        currentNumber += current;
     }
+    result = performOperation(result, currentOperation, currentNumber);  
     return result;
+    }
 }
+
+function performOperation(result, operator, number) {
+    let num = parseFloat(number);
+
+    switch (operator) {
+        case '*':
+          result = multiply(parseFloat(result), num);
+          break;
+        case '/':
+          result = divide(parseFloat(result), num);
+          break;
+        case '+':
+          result = add(parseFloat(result), num);
+          break;
+        case '-':
+          result = subtract(parseFloat(result), num);
+          break;
+        default:
+          result = num;
+          break;
+      }
+    return result;  
+}
+
+
 function add(a, b) {
     return a + b;
 }

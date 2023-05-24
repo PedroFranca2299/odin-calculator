@@ -7,9 +7,16 @@ buttons.forEach(function(button) {
         let buttonValue = button.textContent;
 
         if (buttonValue === '=') {
-            display.textContent = evaluateExpression(expression);
+            const result = evaluateExpression(expression);
+            if (result === null) {
+                displayError('Division by zero');
+            } else {
+                display.textContent = result;
+            }
             expression = '';
-        } else {
+        } else if(buttonValue === 'C') {
+            clearDisplay();
+        } else { 
             expression += buttonValue;
             display.textContent += buttonValue;
         }
@@ -28,7 +35,7 @@ function evaluateExpression(expr) {
         if (operators.includes(current)) {
             result += current;
         } else if (i === 0) {
-            result = current;
+            result = current;   
         } else {
             let operator = result.slice(-1);
             let previous = parseFloat(result.slice(0, -1));
@@ -45,6 +52,9 @@ function evaluateExpression(expr) {
                   result = multiply(previous, currentNum);
                   break;
                 case '/':
+                    if (currentNum === 0) {
+                        return null; 
+                  }
                   result = divide(previous, currentNum);
                   break;
                 default:
@@ -52,8 +62,18 @@ function evaluateExpression(expr) {
             }
         }
     }
-    return result;
+    return result.toString();
 }
+
+function displayError(message) {
+    display.textContent = 'Error: ' + message;
+}
+
+function clearDisplay() {
+    display.textContent = '';
+    expression = '';
+}
+
 function add(a, b) {
     return a + b;
 }

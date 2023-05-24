@@ -25,6 +25,9 @@ buttons.forEach(function(button) {
 });
 
 function evaluateExpression(expr) {
+
+    //These are for the possibility of handling parantheses and exponantiation.
+
     // expr = expr.replace(/\s+/g, '');
 
     // // Evaluate parentheses first

@@ -6,23 +6,36 @@ main {
 }
 
 .calc-container {
-    width: 40%;
+    width: 550px;
     height: 70%;
     display: flex;
     flex-direction: column;
+    background-color: rgb(52, 52, 75);;
 }
 
 .display {
     display: flex;
-    flex-grow: 1;
-    background: grey;
+    height: 20%;
+    background: rgb(49, 47, 47);
+    color: white;
+    font-size: 20px;
+    align-items: center;
+    padding-left: 50px;
 }
 
-.buttons {
+.buttons .line {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between; /* Align buttons evenly within each line */
+  }
+  
+  .buttons .line > button {
+    flex-grow: 1; /* Allow buttons to expand and fill the available space */
+    background-color: rgb(34, 34, 44);
+    height: 100%;
+  }
+
+.buttons {
     flex-grow: 5;
-    background: darkblue;
 }
 
 .line { 
@@ -33,4 +46,26 @@ main {
     background-color: brown;
     width: 24%;
     height: 95%;
+    color: white;
+    border: solid 2px rgb(52, 52, 75);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#button-clear {
+    background-color: rgb(52, 52, 75);;
+}
+
+#clear {
+    color: orangered;
+    border: solid 2px white;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: white;
 }

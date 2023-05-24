@@ -8,7 +8,8 @@ buttons.forEach(function(button) {
 
         if (buttonValue === '=') {
             const result = evaluateExpression(expression);
-            if (result === null) {
+            console.log(result);
+            if (!isFinite(result)) {
                 displayError('Division by zero');
             } else {
                 display.textContent = result;
@@ -25,44 +26,44 @@ buttons.forEach(function(button) {
 });
 
 function evaluateExpression(expr) {
-    const operators = ['+', '-', '*', '/'];
-    let result = '';
-    let numbers = expr.split(/(\+|\-|\*|\/)/);
+    // expr = expr.replace(/\s+/g, '');
 
-    for (let i = 0; i < numbers.length; i++) {
-        let current = numbers[i].trim();
-        
-        if (operators.includes(current)) {
-            result += current;
-        } else if (i === 0) {
-            result = current;   
-        } else {
-            let operator = result.slice(-1);
-            let previous = parseFloat(result.slice(0, -1));
-            let currentNum = parseFloat(current);
+    // // Evaluate parentheses first
+    // while (expr.includes('(')) {
+    //     expr = expr.replace(/\(([^()]+)\)/g, function(match, innerExpr) {
+    //         return evaluateExpression(innerExpr);
+    //     });
+    // }
 
-            switch (operator) {
-                case '+':
-                  result = add(previous, currentNum);
-                  break;
-                case '-':
-                  result = subtract(previous, currentNum);
-                  break;
-                case '*':
-                  result = multiply(previous, currentNum);
-                  break;
-                case '/':
-                    if (currentNum === 0) {
-                        return null; 
-                  }
-                  result = divide(previous, currentNum);
-                  break;
-                default:
-                  break;
+    // // Evaluate exponentiation
+    // while (expr.includes('^')) {
+    //     expr = expr.replace(/(-?\d+(?:\.\d+)?)\^(-?\d+(?:\.\d+)?)/g, function(match, base, exponent) {
+    //         return Math.pow(parseFloat(base), parseFloat(exponent));
+    //     });
+    // }
+
+    while (expr.includes('*') || expr.includes('/')) {
+        expr = expr.replace(/(-?\d+(?:\.\d+)?)\s*([\/*])\s*(-?\d+(?:\.\d+)?)/g, function(match, operand1, operator, operand2) {
+            if (operator === '*') {
+                return parseFloat(operand1) * parseFloat(operand2);
+            } else if (operator === '/') {
+                return parseFloat(operand1) / parseFloat(operand2);
             }
-        }
+        });
     }
-    return result.toString();
+
+    // Evaluate addition and subtraction
+    while (expr.includes('+') || expr.includes('-')) {
+        expr = expr.replace(/(-?\d+(?:\.\d+)?)\s*([\+\-])\s*(-?\d+(?:\.\d+)?)/g, function(match, operand1, operator, operand2) {
+            if (operator === '+') {
+                return parseFloat(operand1) + parseFloat(operand2);
+            } else if (operator === '-') {
+                return parseFloat(operand1) - parseFloat(operand2);
+            }
+        });
+    }
+
+    return expr;
 }
 
 function displayError(message) {
@@ -74,21 +75,21 @@ function clearDisplay() {
     expression = '';
 }
 
-function add(a, b) {
-    return a + b;
-}
+// function add(a, b) {
+//     return a + b;
+// }
 
-function subtract(a, b) {
-    return a - b;
-}
+// function subtract(a, b) {
+//     return a - b;
+// }
 
-function multiply(a, b) {
-    return a * b;
-}
+// function multiply(a, b) {
+//     return a * b;
+// }
 
-function divide(a, b) {
-    return a / b;
-}
+// function divide(a, b) {
+//     return a / b;
+// }
 
 // let operand = parseInt(prompt('Type a positive integer'));
 

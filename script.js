@@ -21,7 +21,6 @@ buttons.forEach(function(button) {
             expression += buttonValue;
             display.textContent += buttonValue;
         }
-        // return buttonValue;
     });
 });
 
@@ -52,7 +51,6 @@ function evaluateExpression(expr) {
         });
     }
 
-    // Evaluate addition and subtraction
     while (expr.includes('+') || expr.includes('-')) {
         expr = expr.replace(/(-?\d+(?:\.\d+)?)\s*([\+\-])\s*(-?\d+(?:\.\d+)?)/g, function(match, operand1, operator, operand2) {
             if (operator === '+') {
@@ -74,49 +72,3 @@ function clearDisplay() {
     display.textContent = '';
     expression = '';
 }
-
-// function add(a, b) {
-//     return a + b;
-// }
-
-// function subtract(a, b) {
-//     return a - b;
-// }
-
-// function multiply(a, b) {
-//     return a * b;
-// }
-
-// function divide(a, b) {
-//     return a / b;
-// }
-
-// let operand = parseInt(prompt('Type a positive integer'));
-
-// let operator = prompt('Type a mathematical operator');
-
-// let operandTwo = parseInt(prompt('Type a positive integer'));
-
-// function operate () {
-//     if (operator === '+') {
-//        return add(operand, operandTwo);
-//     }
-    
-//     if (operator === '-') {
-//        return subtract(operand, operandTwo);
-//     }
-    
-//     if (operator === '*') {
-//         return multiply(operand, operandTwo);
-//     }
-
-//     if (operator === '/') {
-//        return divide(operand, operandTwo);
-//     }
-// }
-
-
-
-// operate();
-// console.log(operate());
-
